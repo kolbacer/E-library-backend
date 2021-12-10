@@ -1,9 +1,9 @@
 const ApiError = require('../error/ApiError');
 const bcrypt = require('bcrypt')
 const {Book, User} = require("../models/models");
-const uuid = require('uuid')
-const path = require('path')
 const jwt = require('jsonwebtoken')
+
+const checkPersonality = require('../utils/checkPersonality')
 
 const generateJwt = (user_id, login) => {
      return jwt.sign(
@@ -29,16 +29,7 @@ class UserController {
         obj.password = hashPassword
 
         if (req.files) {
-            const {img} = req.files
-            let tempArray = img.name.split('.')
-            let imgFormat = 'jpg'
-            if (tempArray.length > 1) {
-                imgFormat = tempArray[tempArray.length - 1]
-            }
-
-            let imgName = uuid.v4() + "." + imgFormat
-            obj.img = imgName
-            img.mv(path.resolve(__dirname, '..', 'static/user_images', imgName))
+            obj.imgdata = req.files.img.data
         }
 
         const user = await User.create(obj)
@@ -74,14 +65,21 @@ class UserController {
         page = page || 1
         limit = limit || 10
         let offset = page * limit - limit
-        let books;
+        let users;
         if (!title) {
-            books = await User.findAndCountAll({limit, offset})
+            users = await User.findAndCountAll({limit, offset})
         } else {
-            books = await User.findAndCountAll({where:{title}, limit, offset})
+            users = await User.findAndCountAll({where:{title}, limit, offset})
         }
 
-        return res.json(books)
+        users.rows.map(user => {
+            if (user.imgdata) {
+                const stringified_image = user.imgdata.toString('base64')
+                user['imgdata'] = stringified_image
+            }
+        })
+
+        return res.json(users)
     }
 
     async getOne(req, res) {
@@ -91,6 +89,12 @@ class UserController {
                 where: {user_id},
             },
         )
+
+        if (user && user.imgdata) {
+            const stringified_image = user.imgdata.toString('base64')
+            user['imgdata'] = stringified_image
+        }
+
         return res.json(user)
     }
 /*
@@ -125,6 +129,13 @@ class UserController {
                 return res.status(404).json('Пользователь не найден!')
             }
 
+            users.map(user => {
+                if (user.imgdata) {
+                    const stringified_image = user.imgdata.toString('base64')
+                    user['imgdata'] = stringified_image
+                }
+            })
+
             return res.json(users)
         } catch (e) {
             return res.status(520).json(e.message)
@@ -144,6 +155,13 @@ class UserController {
                 //return next(ApiError.badRequest('Пользователь не найден!'))
                 return res.status(404).json('Пользователь не найден!')
             }
+
+            users.map(user => {
+                if (user.imgdata) {
+                    const stringified_image = user.imgdata.toString('base64')
+                    user['imgdata'] = stringified_image
+                }
+            })
 
             return res.json(users)
         } catch (e) {
@@ -234,6 +252,7 @@ class UserController {
 
     async setAuthorRequest(req, res) {
         const {user_id} = req.body
+        checkPersonality(user_id, req.headers.authorization.split(' ')[1])
         try {
             const response = await User.update(
                 {author_request: true},
@@ -258,6 +277,7 @@ class UserController {
 
     async changePassword(req, res, next) {
         const {user_id, old_password, new_password} = req.body
+        checkPersonality(user_id, req.headers.authorization.split(' ')[1])
 
         const user = await User.findOne({where: {user_id}})
         let comparePassword = bcrypt.compareSync(old_password, user.password)

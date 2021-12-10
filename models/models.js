@@ -11,7 +11,7 @@ const User = sequelize.define('user', {
     is_author: {type: DataTypes.BOOLEAN, allowNull: false},
     is_moder: {type: DataTypes.BOOLEAN, allowNull: false},
     author_request: {type: DataTypes.BOOLEAN, allowNull: true},
-    img: {type: DataTypes.STRING, allowNull: true}
+    imgdata: {type: DataTypes.BLOB('long'), allowNull: true}
 }, {
     freezeTableName: true,
     timestamps: false
@@ -31,8 +31,8 @@ const Book = sequelize.define('book', {
     file_format: {type: DataTypes.STRING, allowNull: true},
     download_link: {type: DataTypes.STRING, allowNull: true},
     approved: {type: DataTypes.BOOLEAN, allowNull: false},
-    img: {type: DataTypes.STRING, allowNull: true},
-    file: {type: DataTypes.STRING, allowNull: true}
+    imgdata: {type: DataTypes.BLOB('long'), allowNull: true},
+    filedata: {type: DataTypes.BLOB('long'), allowNull: true}
 }, {
     freezeTableName: true,
     timestamps: false

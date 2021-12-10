@@ -1,11 +1,15 @@
 const {Book, User, Comments} = require('../models/models')
 const ApiError = require('../error/ApiError')
 
+const checkPersonality = require('../utils/checkPersonality')
+const checkPersonalityOrModer = require('../utils/checkPersonalityOrModer')
+
 class commentController {
 
     async create(req, res, next) {
         try{
             const obj = req.body
+            checkPersonality(obj.user_id, req.headers.authorization.split(' ')[1])
 
             const comment = await Comments.create(obj)
             return res.json(comment)
@@ -17,6 +21,10 @@ class commentController {
     async delete(req, res, next) {
         try{
             const {comment_id} = req.query
+
+            let comment = await Comments.findOne({where: {comment_id}})
+            await checkPersonalityOrModer(comment.user_id, req.headers.authorization.split(' ')[1])
+
             const response = await Comments.destroy({
                 where: {
                     comment_id

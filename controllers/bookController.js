@@ -1,10 +1,9 @@
 const {Book, Rating} = require('../models/models')
 const ApiError = require('../error/ApiError')
-const uuid = require('uuid')
-const path = require('path')
 const {BookAuthor} = require("../models/models");
 const {BookReader} = require("../models/models");
-const {unlink} = require('fs')
+
+const checkPersonality = require('../utils/checkPersonality')
 
 class BookController {
     async create(req, res, next) {
@@ -12,20 +11,10 @@ class BookController {
             const obj = req.body
 
             if (req.files && req.files.img) {
-                const {img} = req.files
-
-                let tempArray = img.name.split('.')
-                let imgFormat = 'jpg'
-                if (tempArray.length > 1) {
-                    imgFormat = tempArray[tempArray.length - 1]
-                }
-
-                let imgName = uuid.v4() + "." + imgFormat
-                obj.img = imgName
-                img.mv(path.resolve(__dirname, '..', 'static/images', imgName))
+                obj.imgdata = req.files.img.data
             }
 
-            if (req.files && req.files.img) {
+            if (req.files && req.files.file) {
                 const {file} = req.files
 
                 let tempArray = file.name.split('.')
@@ -34,12 +23,9 @@ class BookController {
                     fileFormat = tempArray[tempArray.length - 1]
                 }
 
-                let fileName = uuid.v4() + "." + fileFormat
-                obj.file = fileName
-                file.mv(path.resolve(__dirname, '..', 'static/books', fileName))
-
-                obj.download_link = path.resolve(__dirname, '..', 'static/books', fileName)
+                //obj.download_link = path.resolve(__dirname, '..', 'static/books', fileName)
                 obj.file_format = fileFormat
+                obj.filedata = req.files.file.data
             }
 
             const book = await Book.create(obj).then().catch(e => {
@@ -76,6 +62,17 @@ class BookController {
             })
         }
 
+        books.rows.map(book => {
+            if (book.imgdata) {
+                const stringified_image = book.imgdata.toString('base64')
+                book['imgdata'] = stringified_image
+            }
+            if (book.filedata) {
+                const stringified_file = book.filedata.toString('base64')
+                book['filedata'] = stringified_file
+            }
+        })
+
         return res.json(books)
     }
 
@@ -91,6 +88,18 @@ class BookController {
                 limit,
                 offset
             })
+
+            books.rows.map(book => {
+                if (book.imgdata) {
+                    const stringified_image = book.imgdata.toString('base64')
+                    book['imgdata'] = stringified_image
+                }
+                if (book.filedata) {
+                    const stringified_file = book.filedata.toString('base64')
+                    book['filedata'] = stringified_file
+                }
+            })
+
             return res.json(books)
         } catch (e) {
             return res.status(520).json(e.message)
@@ -104,12 +113,23 @@ class BookController {
                 where: {book_id},
             },
         )
+
+        if (book && book.imgdata) {
+            const stringified_image = book.imgdata.toString('base64')
+            book['imgdata'] = stringified_image
+        }
+        if (book && book.filedata) {
+            const stringified_file = book.filedata.toString('base64')
+            book['filedata'] = stringified_file
+        }
+
         return res.json(book)
     }
 
     async rate(req, res) {
         try {
             const obj = req.body
+            checkPersonality(obj.user_id, req.headers.authorization.split(' ')[1])
             const rate = await Rating.create(obj)
             return res.json(rate)
         } catch (e) {
@@ -120,6 +140,7 @@ class BookController {
     async deleteRate(req, res, next) {
         try{
             const {user_id, book_id} = req.query
+            checkPersonality(user_id, req.headers.authorization.split(' ')[1])
             const response = await Rating.destroy({
                 where: {user_id, book_id}
             })
@@ -170,8 +191,9 @@ class BookController {
     }
 
     async makeRent(req, res) {
-        const {user_id, book_id} = req.body
         try {
+            const {user_id, book_id} = req.body
+            checkPersonality(user_id, req.headers.authorization.split(' ')[1])
             const rent = await BookReader.create({
                 user_id,
                 book_id,
@@ -186,6 +208,7 @@ class BookController {
     async deleteRent(req, res) {
         try{
             const {user_id, book_id} = req.query
+            checkPersonality(user_id, req.headers.authorization.split(' ')[1])
             const response = await BookReader.destroy({
                 where: {user_id, book_id}
             })
@@ -211,24 +234,6 @@ class BookController {
         try{
             const {book_id} = req.query
 
-            const book = await Book.findOne({ where: {book_id} })
-
-            if (book.img) {
-                const imgName = path.resolve(__dirname, '..', 'static/images', book.img)
-                unlink(imgName, (err) => {
-                    if (err) console.log('не удалось удалить картинку');
-                    console.log(imgName + ' was deleted');
-                });
-            }
-
-            if (book.file) {
-                const fileName = path.resolve(__dirname, '..', 'static/books', book.file)
-                unlink(fileName, (err) => {
-                    if (err) console.log('не удалось удалить книгу');
-                    console.log(fileName + ' was deleted');
-                });
-            }
-
             const response = await Book.destroy({
                 where: {book_id}
             })
@@ -249,8 +254,9 @@ class BookController {
     }
 
     async makeAuthorship(req, res) {
-        const {user_id, book_id} = req.body
         try {
+            const {user_id, book_id} = req.body
+            checkPersonality(user_id, req.headers.authorization.split(' ')[1])
             const authorship = await BookAuthor.create({
                 user_id,
                 book_id
@@ -262,8 +268,9 @@ class BookController {
     }
 
     async makeBookmark(req, res) {
-        const {user_id, book_id, bookmark} = req.body
         try {
+            const {user_id, book_id, bookmark} = req.body
+            checkPersonality(user_id, req.headers.authorization.split(' ')[1])
             const response = await BookReader.update(
                 {bookmark},
                 {where: {user_id, book_id}})
@@ -275,6 +282,7 @@ class BookController {
 
     async getBookmark(req, res) {
         const {user_id, book_id} = req.query
+        checkPersonality(user_id, req.headers.authorization.split(' ')[1])
         const bookmark = await BookReader.findOne(
             {
                 where: {user_id, book_id},

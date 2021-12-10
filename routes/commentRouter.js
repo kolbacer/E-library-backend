@@ -1,11 +1,11 @@
 const Router = require('express')
 const router = new Router()
 const commentController = require('../controllers/commentController')
-const checkRole = require('../middleware/checkRoleMiddleware')
+const authMiddleware = require("../middleware/authMiddleware");
 
-router.post('/', commentController.create)
+router.post('/', authMiddleware, commentController.create)
 router.get('/', commentController.getAll)
-router.delete('/', commentController.delete)
+router.delete('/', authMiddleware, commentController.delete)
 router.get('/:id', commentController.getOne)
 
 module.exports = router

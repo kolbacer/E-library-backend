@@ -16,7 +16,7 @@ app.use(express.static(path.resolve(__dirname, 'static')))
 app.use(fileUpload({}))
 app.use('/api', router)
 
-// Обработка ошибка, последний Middleware
+// Обработка ошибок, последний Middleware
 app.use(errorHandler)
 
 
