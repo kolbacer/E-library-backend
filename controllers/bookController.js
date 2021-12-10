@@ -48,6 +48,22 @@ class BookController {
                 where: {
                     approved: true
                 },
+                attributes: [
+                    "book_id",
+                    "title",
+                    "authors",
+                    "genre",
+                    "publisher",
+                    "publication_date",
+                    "age_rating",
+                    "language",
+                    "description",
+                    "pages_amount",
+                    "file_format",
+                    "download_link",
+                    "approved",
+                    "imgdata",
+                ],
                 limit,
                 offset
             })
@@ -57,6 +73,22 @@ class BookController {
                     title,
                     approved: true
                 },
+                attributes: [
+                    "book_id",
+                    "title",
+                    "authors",
+                    "genre",
+                    "publisher",
+                    "publication_date",
+                    "age_rating",
+                    "language",
+                    "description",
+                    "pages_amount",
+                    "file_format",
+                    "download_link",
+                    "approved",
+                    "imgdata",
+                ],
                 limit,
                 offset
             })
@@ -66,10 +98,6 @@ class BookController {
             if (book.imgdata) {
                 const stringified_image = book.imgdata.toString('base64')
                 book['imgdata'] = stringified_image
-            }
-            if (book.filedata) {
-                const stringified_file = book.filedata.toString('base64')
-                book['filedata'] = stringified_file
             }
         })
 
@@ -85,6 +113,22 @@ class BookController {
         try {
             const books = await Book.findAndCountAll({
                 where: whereObj,
+                attributes: [
+                    "book_id",
+                    "title",
+                    "authors",
+                    "genre",
+                    "publisher",
+                    "publication_date",
+                    "age_rating",
+                    "language",
+                    "description",
+                    "pages_amount",
+                    "file_format",
+                    "download_link",
+                    "approved",
+                    "imgdata",
+                ],
                 limit,
                 offset
             })
@@ -93,10 +137,6 @@ class BookController {
                 if (book.imgdata) {
                     const stringified_image = book.imgdata.toString('base64')
                     book['imgdata'] = stringified_image
-                }
-                if (book.filedata) {
-                    const stringified_file = book.filedata.toString('base64')
-                    book['filedata'] = stringified_file
                 }
             })
 
