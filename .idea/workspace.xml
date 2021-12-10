@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="8b718935-a926-4384-b7ab-650d41366e60" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/aws.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/aws.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/bookController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/bookController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/commentController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/commentController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/userController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/userController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.js" beforeDir="false" afterPath="$PROJECT_DIR$/db.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/middleware/authMiddleware.js" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/authMiddleware.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/middleware/checkRoleMiddleware.js" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/checkRoleMiddleware.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/models.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/models.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/bookRouter.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/bookRouter.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/commentRouter.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/commentRouter.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/userRouter.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/userRouter.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/background.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/books/04530721-70a1-4bb6-84d4-f82d67f0fde1.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/books/2da30d39-ad4d-4b55-9a9d-1b275f229db5.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/books/6eaf0490-3272-4ba1-a630-441aad11faf8.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/books/e49588ad-b11f-4096-881f-d760ab4603b1.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/books/fc3f0413-6fa4-4231-a93a-c2e377fdb89d.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/default_book.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/default_user.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/images/20d6977b-0e37-4630-8175-217bc266a484.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/images/2c2c7a5b-f405-48ad-8b03-6f53a5ca81fa.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/images/a2146017-fdbc-4b63-948e-2137d9e12073.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/images/a40fb5c2-f4b4-4b30-8fb0-a57d25c681ba.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/images/b6c644e6-5eaa-40bc-bd30-80388e67e2c4.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/images/bbf5df31-d6bf-4e7e-84a5-274391d671b5.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/user_images/3c0f6028-1408-4d56-a74a-abd94a7cfbf9.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/user_images/9f3e1385-6fa8-43ff-9488-11e8c3181663.jpg" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="226p1NYg66Jd8MBOdkpEwuABquD" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="dart.analysis.tool.window.visible" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8b718935-a926-4384-b7ab-650d41366e60" name="Changes" comment="" />
+      <created>1639167675225</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1639167675225</updated>
+      <workItem from="1639167676660" duration="186000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
